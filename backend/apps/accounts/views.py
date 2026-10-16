@@ -4,6 +4,7 @@ Views for accounts app – OTP authentication and collector ops.
 import random
 from datetime import timedelta
 
+from django.conf import settings
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.response import Response
@@ -43,17 +44,24 @@ class SendOTPView(APIView):
             defaults={'role': role}
         )
 
+        # Invalidate all previous unused OTPs for this user
+        OTPVerification.objects.filter(user=user, is_used=False).update(is_used=True)
+
         otp_code = str(random.randint(100000, 999999))
         OTPVerification.objects.create(
             user=user,
             otp_code=otp_code,
-            expires_at=timezone.now() + timedelta(minutes=5),
+            expires_at=timezone.now() + timedelta(minutes=30),
         )
 
-        # TODO: Send otp_code via SMS gateway (Twilio / MSG91)
         print(f"[DEV] OTP for {phone}: {otp_code}")
 
-        return Response({'message': 'OTP sent successfully.'}, status=status.HTTP_200_OK)
+        response_data = {'message': 'OTP sent successfully.'}
+        # In DEBUG mode, return OTP directly in the response
+        if getattr(settings, 'DEBUG', False):
+            response_data['otp'] = otp_code
+
+        return Response(response_data, status=status.HTTP_200_OK)
 
 
 class VerifyOTPView(APIView):
