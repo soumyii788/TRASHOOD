@@ -4,7 +4,7 @@ from .models import ScrapCategory
 
 class ScrapCategorySerializer(serializers.ModelSerializer):
     accepted_items_list = serializers.ListField(
-        child=serializers.CharField(), read_only=True, source='accepted_items_list'
+        child=serializers.CharField(), read_only=True
     )
 
     class Meta:
