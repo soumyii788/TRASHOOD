@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard'
 import Catalog from './pages/Catalog'
 import Pickups from './pages/Pickups'
 import Wallet from './pages/Wallet'
+import PriceList from './pages/PriceList'
 import Navbar from './components/Navbar'
 
 function PrivateRoute({ children }) {
@@ -27,6 +28,7 @@ export default function App() {
                   <Route path="/catalog" element={<Catalog />} />
                   <Route path="/pickups" element={<Pickups />} />
                   <Route path="/wallet" element={<Wallet />} />
+                  <Route path="/prices" element={<PriceList />} />
                 </Routes>
               </>
             </PrivateRoute>

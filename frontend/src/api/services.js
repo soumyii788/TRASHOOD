@@ -1,4 +1,5 @@
 import api from './axios'
+import axios from 'axios'
 
 // Auth
 export const sendOTP = (phone_number, role = 'CUSTOMER') =>
@@ -13,8 +14,12 @@ export const updateProfile = (data) => api.put('/customers/profile/', data)
 export const getAddresses = () => api.get('/customers/addresses/')
 export const addAddress = (data) => api.post('/customers/addresses/', data)
 
-// Catalog
+// Catalog – authenticated (post-login)
 export const getCategories = () => api.get('/catalog/categories/')
+
+// Catalog – public price list (no auth required)
+export const getPublicCategories = () =>
+  axios.get('/api/v1/catalog/public-categories/')
 
 // Pickups
 export const requestPickup = (data) => api.post('/pickups/request/', data)
