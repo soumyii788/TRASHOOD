@@ -1,0 +1,263 @@
+/* ===== Profile & Addresses page ===== */
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.profile-card {
+  background: #fff;
+  border: 1px solid #f0f0f0;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+}
+
+.profile-card h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: #0d1f12;
+}
+.profile-card p { margin: 0.15rem 0 0; font-size: 0.8rem; color: #888; }
+
+/* ── Avatar head ── */
+.profile-card-head {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #f1f1f1;
+}
+.profile-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #a7f3d0;
+  flex-shrink: 0;
+}
+.profile-avatar.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a472a;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.15rem;
+  border-color: #1a472a;
+}
+
+/* ── Forms (reuses .form-group styling from Dashboard.css) ── */
+.profile-form,
+.address-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.profile-form .form-group,
+.address-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.profile-form .form-group label,
+.address-form .form-group label {
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: #444;
+}
+.profile-form .form-group input,
+.address-form .form-group input,
+.address-form .form-group select {
+  padding: 0.65rem 0.9rem;
+  border: 1.5px solid #ddd;
+  border-radius: 9px;
+  font-size: 0.9rem;
+  color: #222;
+  background: #fafafa;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.15s, background 0.15s;
+}
+.profile-form .form-group input:focus,
+.address-form .form-group input:focus,
+.address-form .form-group select:focus {
+  border-color: #52b788;
+  background: #fff;
+}
+
+.label-note { font-weight: 400; color: #999; font-size: 0.75rem; }
+
+.profile-save-btn {
+  background: #1a472a;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.12s;
+}
+.profile-save-btn:hover:not(:disabled) { background: #2d6a4f; transform: translateY(-1px); }
+.profile-save-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.profile-msg {
+  font-size: 0.85rem !important;
+  color: #2d6a4f !important;
+  background: #f0faf4;
+  border: 1px solid #a7f3d0;
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+}
+
+/* ── Address book ── */
+.address-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.add-addr-btn {
+  background: #f0faf4;
+  border: 1.5px solid #52b788;
+  color: #1a472a;
+  border-radius: 8px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.add-addr-btn:hover { background: #d8f3e4; }
+
+.addr-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 2rem 1rem;
+  color: #888;
+  font-size: 0.9rem;
+  text-align: center;
+  background: #fafcfb;
+  border: 1px dashed #d6e9de;
+  border-radius: 10px;
+}
+.addr-empty .state-icon { font-size: 2rem; }
+.addr-empty p { margin: 0; }
+
+.address-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.address-item {
+  background: #fafcfb;
+  border: 1px solid #e8f3ec;
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+}
+.address-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1a472a;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.default-star { color: #b45309; font-size: 0.72rem; text-transform: none; letter-spacing: 0; }
+.address-line { margin: 0.4rem 0 0; font-size: 0.92rem; color: #222; }
+.address-region { margin: 0.15rem 0 0; font-size: 0.85rem; color: #555; }
+.address-coords { margin: 0.3rem 0 0 !important; font-size: 0.75rem !important; color: #999 !important; }
+
+/* ── Label picker chips ── */
+.label-picker {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+.label-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  padding: 0.55rem 0.4rem;
+  background: #fafafa;
+  border: 1.5px solid #ddd;
+  border-radius: 9px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #555;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.15s, background 0.15s;
+}
+.label-chip small { font-weight: 400; font-size: 0.63rem; color: #999; }
+.label-chip.active {
+  border-color: #52b788;
+  background: #f0faf4;
+  color: #1a472a;
+}
+.label-chip.active small { color: #2d6a4f; }
+
+/* ── Address form rows ── */
+.addr-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.addr-row .form-group { flex: 1; min-width: 120px; }
+.addr-row .form-group.zip { flex: 0.6; min-width: 100px; }
+.coords-row input { flex: 1; min-width: 110px; }
+.geo-btn {
+  background: #fff;
+  border: 1.5px solid #52b788;
+  color: #1a472a;
+  border-radius: 9px;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.83rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+.geo-btn:hover:not(:disabled) { background: #f0faf4; }
+.geo-btn:disabled { opacity: 0.6; cursor: wait; }
+
+.default-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #444;
+  cursor: pointer;
+}
+.default-toggle input { accent-color: #1a472a; width: 16px; height: 16px; }
+
+.address-form {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #f1f1f1;
+}
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .profile-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .label-picker { grid-template-columns: 1fr; }
+  .label-chip { flex-direction: row; justify-content: center; gap: 0.4rem; }
+  .label-chip small { display: none; }
+  .addr-row .form-group,
+  .addr-row .form-group.zip { min-width: 100%; flex: 1 1 100%; }
+}
