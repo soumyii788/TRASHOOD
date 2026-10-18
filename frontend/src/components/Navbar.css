@@ -14,12 +14,26 @@
 }
 
 .navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 800;
   margin-right: auto;
   color: white;
   text-decoration: none;
   white-space: nowrap;
+  letter-spacing: -0.3px;
+}
+.brand-hood { color: #95d5b2; }
+.navbar-logo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  background: #eef0e6;
+  border-radius: 8px;
+  padding: 3px;
+  box-sizing: border-box;
 }
 
 /* Desktop nav links */

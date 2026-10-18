@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
+import logoIcon from '../assets/trashhood-icon.png'
 import './Navbar.css'
 
 export default function Navbar() {
@@ -17,7 +18,8 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <Link to="/" className="navbar-brand" onClick={close}>
-        ♻️ ScrapMarket
+        <img src={logoIcon} alt="" className="navbar-logo" />
+        <span>trash<span className="brand-hood">hood</span></span>
       </Link>
 
       {/* Desktop links */}
@@ -27,6 +29,7 @@ export default function Navbar() {
         <NavLink to="/pickups">My Pickups</NavLink>
         <NavLink to="/wallet">Wallet</NavLink>
         <NavLink to="/prices">Price List</NavLink>
+        <NavLink to="/profile">Profile</NavLink>
       </div>
 
       <button className="logout-btn" onClick={logout}>Logout</button>
@@ -49,6 +52,7 @@ export default function Navbar() {
           <NavLink to="/pickups" onClick={close}>My Pickups</NavLink>
           <NavLink to="/wallet" onClick={close}>Wallet</NavLink>
           <NavLink to="/prices" onClick={close}>Price List</NavLink>
+          <NavLink to="/profile" onClick={close}>Profile</NavLink>
           <button className="logout-btn mobile-logout" onClick={logout}>Logout</button>
         </div>
       )}

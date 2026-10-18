@@ -14,7 +14,7 @@ schema_view = get_schema_view(
         title="Scrap Marketplace API",
         default_version='v1',
         description="REST API for the Scrap Recycling Marketplace platform.",
-        contact=openapi.Contact(email="support@scrapmarket.example.com"),
+        contact=openapi.Contact(email="saumyashukla788708@gmail.com"),
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),

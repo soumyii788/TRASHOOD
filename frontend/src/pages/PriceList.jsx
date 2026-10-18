@@ -158,7 +158,7 @@ export default function PriceList() {
           </table>
 
           <p className="catalog-footer-note">
-            Prices last updated by admin. Contact us to schedule a free pickup: 📞 +91 98765 43210
+            Prices last updated by admin. Contact us to schedule a free pickup: 📞 <a href="tel:+916306503294">+91 63065 03294</a>
           </p>
         </>
       )}

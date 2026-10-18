@@ -18,7 +18,26 @@
 .login-card h1 {
   font-size: 1.8rem;
   margin: 0 0 0.25rem;
-  color: #1a472a;
+  color: #1a1f1a;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+.login-logo {
+  display: block;
+  width: 150px;
+  height: auto;
+  margin: 0 auto 1rem;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .subtitle {

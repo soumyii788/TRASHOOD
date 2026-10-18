@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { sendOTP, verifyOTP } from '../api/services'
+import logoFull from '../assets/trashhood-logo.png'
 import './Login.css'
 
 export default function Login() {
@@ -50,7 +51,8 @@ export default function Login() {
   return (
     <div className="login-container">
       <div className="login-card">
-        <h1>♻️ ScrapMarket</h1>
+        <img src={logoFull} alt="" className="login-logo" />
+        <h1 className="visually-hidden">Trashhood — Scrap Collecting</h1>
         <p className="subtitle">Sell your scrap, earn instantly</p>
 
         {step === 'phone' ? (

@@ -16,7 +16,7 @@
   position: relative;
   min-height: 92vh;
   background-size: cover;
-  background-position: center top;
+  background-position: center center;
   background-repeat: no-repeat;
   display: flex;
   align-items: center;
@@ -27,10 +27,10 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    120deg,
-    rgba(10, 30, 15, 0.88) 0%,
-    rgba(13, 43, 23, 0.75) 50%,
-    rgba(20, 60, 30, 0.40) 100%
+    125deg,
+    rgba(5, 20, 10, 0.92) 0%,
+    rgba(8, 30, 16, 0.80) 45%,
+    rgba(10, 40, 20, 0.35) 100%
   );
   z-index: 1;
 }
@@ -453,7 +453,24 @@
   padding-bottom: 2rem;
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
-.footer-brand { font-size: 1.4rem; font-weight: 800; color: #74c69d; margin-bottom: 0.4rem; }
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.4rem;
+}
+.footer-logo {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  background: #eef0e6;
+  border-radius: 9px;
+  padding: 4px;
+  box-sizing: border-box;
+}
 .footer-tagline { font-size: 0.85rem; color: #888; margin: 0 0 1rem; }
 .footer-social { display: flex; gap: 0.75rem; font-size: 1.4rem; cursor: default; }
 
@@ -472,6 +489,8 @@
 }
 .footer-link:hover { color: #74c69d; }
 .footer-contact-line { font-size: 0.85rem; color: #888; margin: 0.25rem 0; }
+.footer-contact-line a { color: #b7e4c7; text-decoration: none; transition: color 0.15s; }
+.footer-contact-line a:hover { color: #74c69d; text-decoration: underline; }
 
 .footer-bottom {
   display: flex;
@@ -546,6 +565,21 @@
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus { border-color: #52b788; background: #fff; }
+
+.btn-add-addr {
+  display: block;
+  margin: 0.75rem auto 0;
+  background: #b91c1c;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.btn-add-addr:hover { background: #991b1b; }
 
 .modal-submit-btn {
   background: #1a472a;

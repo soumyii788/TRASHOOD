@@ -4,7 +4,8 @@ import {
   getProfile, getBalance, getPickupHistory,
   getCategories, requestPickup, getAddresses,
 } from '../api/services'
-import heroImg from '../assets/hero-recycle.jpg'
+import heroImg from '../assets/hero-bottle.jpg'
+import logoIcon from '../assets/trashhood-icon.png'
 import recycleBagImg from '../assets/recycle-bag.jpg'
 import './Page.css'
 import './Dashboard.css'
@@ -71,6 +72,7 @@ const BLOGS = [
 
 // ── Schedule Pickup Modal ──
 function ScheduleModal({ addresses, onClose, onSuccess }) {
+  const navigate = useNavigate()
   const [addressId, setAddressId] = useState(addresses[0]?.id || '')
   const [dateTime, setDateTime] = useState('')
   const [notes, setNotes] = useState('')
@@ -101,7 +103,12 @@ function ScheduleModal({ addresses, onClose, onSuccess }) {
         <p className="modal-subtitle">We'll send a verified collector to your door.</p>
         <form onSubmit={handleSubmit} className="pickup-form">
           {addresses.length === 0 ? (
-            <div className="error-banner">No saved address found. Update your profile first.</div>
+            <div className="error-banner">
+              No saved address found. Add one to your profile first.
+              <button className="btn-add-addr" onClick={() => navigate('/profile')}>
+                ➕ Add address
+              </button>
+            </div>
           ) : (
             <div className="form-group">
               <label>Pickup Address</label>
@@ -177,7 +184,7 @@ export default function Dashboard() {
       <section className="hero" style={{ backgroundImage: `url(${heroImg})` }}>
         <div className="hero-overlay" />
         <div className="hero-inner">
-          <span className="hero-badge">♻️ India's Trusted Scrap Marketplace</span>
+          <span className="hero-badge">♻️ India's Trusted Scrap Collecting Platform</span>
           <h1 className="hero-title">
             Trade.<br />
             <span className="hero-line2">Transform.</span><br />
@@ -329,7 +336,7 @@ export default function Dashboard() {
         <div className="page" style={{ paddingTop: '3.5rem', paddingBottom: '4rem' }}>
           <p className="section-eyebrow">Knowledge Hub</p>
           <h2 className="section-title">From Our Blog</h2>
-          <p className="section-sub">Tips, facts and sustainability stories from the ScrapMarket team</p>
+          <p className="section-sub">Tips, facts and sustainability stories from the Trashhood team</p>
           <div className="blog-grid">
             {BLOGS.map((b, i) => (
               <article className="blog-card" key={i} style={{ '--card-accent': b.accent, '--card-bg': b.color }}>
@@ -385,7 +392,10 @@ export default function Dashboard() {
         <div className="footer-inner">
           <div className="footer-top">
             <div className="footer-brand-block">
-              <div className="footer-brand">♻️ ScrapMarket</div>
+              <div className="footer-brand">
+                <img src={logoIcon} alt="" className="footer-logo" />
+                <span>trash<span className="brand-hood">hood</span></span>
+              </div>
               <p className="footer-tagline">Responsible recycling, rewarding you.</p>
               <div className="footer-social">
                 <span title="Facebook">📘</span>
@@ -402,13 +412,17 @@ export default function Dashboard() {
             </div>
             <div className="footer-links-block">
               <h4>Contact Us</h4>
-              <p className="footer-contact-line">✉️ support@scrapmarket.example.com</p>
-              <p className="footer-contact-line">📞 +91 98765 43210</p>
+              <p className="footer-contact-line">
+                ✉️ <a href="mailto:saumyashukla788708@gmail.com">saumyashukla788708@gmail.com</a>
+              </p>
+              <p className="footer-contact-line">
+                📞 <a href="tel:+916306503294">+91 63065 03294</a>
+              </p>
               <p className="footer-contact-line">🕘 Mon–Sat, 8am – 8pm IST</p>
             </div>
           </div>
           <div className="footer-bottom">
-            <p>© {CURRENT_YEAR} ScrapMarket. All rights reserved.</p>
+            <p>© {CURRENT_YEAR} Trashhood. All rights reserved.</p>
             <p className="footer-disclaimer">All prices shown are indicative estimates. Actual payout confirmed on-site.</p>
           </div>
         </div>
