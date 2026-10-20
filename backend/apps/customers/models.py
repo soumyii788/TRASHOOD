@@ -40,5 +40,13 @@ class Address(models.Model):
     long = models.DecimalField(max_digits=9, decimal_places=6)
     is_default = models.BooleanField(default=False)
 
+    class Meta:
+        ordering = ['-is_default', 'label']
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.is_default:
+            Address.objects.filter(customer=self.customer).exclude(pk=self.pk).update(is_default=False)
+
     def __str__(self):
         return f"{self.label} – {self.address_line1}, {self.city}"

@@ -32,11 +32,15 @@ class Transaction(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     txn_type = models.CharField(max_length=10, choices=TxnType.choices)
     status = models.CharField(max_length=10, choices=TxnStatus.choices, default=TxnStatus.PENDING)
-    reference = models.CharField(max_length=100, blank=True)  # Payment gateway ref
+    reference = models.CharField(max_length=100, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['user', 'status']),
+            models.Index(fields=['reference']),
+        ]
 
     def __str__(self):
         return f"{self.txn_type} ₹{self.amount} – {self.user.phone_number}"

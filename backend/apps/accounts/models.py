@@ -83,9 +83,10 @@ class CollectorProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='collector_profile')
     vehicle_type = models.CharField(max_length=10, choices=VehicleType.choices, default=VehicleType.BIKE)
     kyc_status = models.CharField(max_length=10, choices=KycStatus.choices, default=KycStatus.PENDING)
-    is_available = models.BooleanField(default=False)
+    is_available = models.BooleanField(default=True)
     current_lat = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     current_long = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    last_location_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return f"Collector: {self.user.phone_number}"

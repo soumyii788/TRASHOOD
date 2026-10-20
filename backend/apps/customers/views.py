@@ -6,7 +6,7 @@ from .serializers import CustomerProfileSerializer, AddressSerializer
 
 
 class CustomerProfileView(generics.RetrieveUpdateAPIView):
-    """GET/PUT /api/v1/customers/profile/"""
+    """GET/PUT/PATCH /api/v1/customers/profile/"""
     serializer_class = CustomerProfileSerializer
     permission_classes = [IsAuthenticated, IsCustomer]
 
@@ -27,3 +27,13 @@ class AddressListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         profile, _ = CustomerProfile.objects.get_or_create(user=self.request.user)
         serializer.save(customer=profile)
+
+
+class AddressDetailView(generics.RetrieveUpdateDestroyAPIView):
+    """GET/PUT/PATCH/DELETE /api/v1/customers/addresses/<id>/"""
+    serializer_class = AddressSerializer
+    permission_classes = [IsAuthenticated, IsCustomer]
+
+    def get_queryset(self):
+        profile, _ = CustomerProfile.objects.get_or_create(user=self.request.user)
+        return Address.objects.filter(customer=profile)

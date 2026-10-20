@@ -2,6 +2,7 @@
 Base settings shared across all environments.
 """
 import os
+from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
 
@@ -172,6 +173,20 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'mediafiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# -------------------------------------------------------------------
+# Marketplace
+# -------------------------------------------------------------------
+COLLECTOR_COMMISSION_RATE = os.environ.get('COLLECTOR_COMMISSION_RATE', '0.10')
+
+# -------------------------------------------------------------------
+# JWT
+# -------------------------------------------------------------------
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=12),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
 
 # -------------------------------------------------------------------
 # DRF
