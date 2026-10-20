@@ -16,5 +16,5 @@ class OTPAdmin(admin.ModelAdmin):
 
 @admin.register(CollectorProfile)
 class CollectorProfileAdmin(admin.ModelAdmin):
-    list_display = ['user', 'vehicle_type', 'kyc_status', 'is_available']
-    list_filter = ['kyc_status', 'vehicle_type']
+    list_display = ['user', 'vehicle_type', 'kyc_status', 'is_available', 'last_location_at']
+    list_filter = ['kyc_status', 'vehicle_type', 'is_available']

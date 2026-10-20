@@ -2,9 +2,7 @@
 Serializers for accounts app – OTP flow and collector profile.
 """
 from rest_framework import serializers
-from django.utils import timezone
-from datetime import timedelta
-from .models import User, OTPVerification, CollectorProfile
+from .models import User, CollectorProfile
 
 
 class SendOTPSerializer(serializers.Serializer):
@@ -25,12 +23,21 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class CollectorProfileSerializer(serializers.ModelSerializer):
+    phone_number = serializers.CharField(source='user.phone_number', read_only=True)
+
     class Meta:
         model = CollectorProfile
-        fields = ['vehicle_type', 'kyc_status', 'is_available', 'current_lat', 'current_long']
-        read_only_fields = ['kyc_status']
+        fields = [
+            'id', 'phone_number', 'vehicle_type', 'kyc_status', 'is_available',
+            'current_lat', 'current_long', 'last_location_at',
+        ]
+        read_only_fields = ['id', 'kyc_status', 'current_lat', 'current_long', 'last_location_at']
 
 
 class CollectorLocationSerializer(serializers.Serializer):
     lat = serializers.DecimalField(max_digits=9, decimal_places=6)
     long = serializers.DecimalField(max_digits=9, decimal_places=6)
+
+
+class AvailabilitySerializer(serializers.Serializer):
+    is_available = serializers.BooleanField()

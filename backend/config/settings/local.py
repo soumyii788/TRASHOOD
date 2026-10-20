@@ -22,5 +22,12 @@ DATABASES = {
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-# Show emails in console during development
+# Run Celery tasks inline when Redis is not running locally
+CELERY_TASK_ALWAYS_EAGER = True
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    }
+}
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
