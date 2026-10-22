@@ -38,8 +38,14 @@ class Transaction(models.Model):
     class Meta:
         ordering = ['-created_at']
         indexes = [
-            models.Index(fields=['user', 'status']),
-            models.Index(fields=['reference']),
+            models.Index(
+                fields=['user', 'status'],
+                name='wallet_txn_user_status_idx',
+            ),
+            models.Index(
+                fields=['reference'],
+                name='wallet_txn_reference_idx',
+            ),
         ]
 
     def __str__(self):

@@ -180,6 +180,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 COLLECTOR_COMMISSION_RATE = os.environ.get('COLLECTOR_COMMISSION_RATE', '0.10')
 
 # -------------------------------------------------------------------
+# Social login (Google / Apple) – OAuth client IDs from the provider consoles
+# -------------------------------------------------------------------
+GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID', '')
+APPLE_CLIENT_ID = os.environ.get('APPLE_CLIENT_ID', '')  # Apple "Services ID" (web)
+
+# -------------------------------------------------------------------
 # JWT
 # -------------------------------------------------------------------
 SIMPLE_JWT = {

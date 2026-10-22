@@ -16,10 +16,11 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from common.permissions import IsCollector
 from .models import User, OTPVerification, CollectorProfile, UserRole
 from .serializers import (
-    SendOTPSerializer, VerifyOTPSerializer,
+    SendOTPSerializer, VerifyOTPSerializer, SocialLoginSerializer,
     CollectorProfileSerializer, CollectorLocationSerializer,
     UserSerializer, AvailabilitySerializer,
 )
+from .social import verify_social_token, SocialTokenError
 from apps.customers.models import CustomerProfile
 from apps.pickups.services import active_pickups_for_collector
 from apps.tracking.broadcast import broadcast_location
@@ -107,6 +108,61 @@ class VerifyOTPView(APIView):
             CollectorProfile.objects.get_or_create(user=user)
         if user.role == UserRole.CUSTOMER:
             CustomerProfile.objects.get_or_create(user=user)
+
+        return Response(get_tokens_for_user(user), status=status.HTTP_200_OK)
+
+
+class SocialLoginView(APIView):
+    """POST /api/v1/auth/social/ – Verify a Google/Apple ID token and issue JWTs."""
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = SocialLoginSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        provider = serializer.validated_data['provider']
+        id_token = serializer.validated_data['id_token']
+
+        try:
+            claims = verify_social_token(provider, id_token)
+        except SocialTokenError as exc:
+            return Response({'error': str(exc)}, status=status.HTTP_401_UNAUTHORIZED)
+
+        sub = claims['sub']
+        email = (claims.get('email') or '').lower() or None
+
+        user = User.objects.filter(social_provider=provider, social_sub=sub).first()
+
+        if user is None and email:
+            # Link to an existing phone-OTP account with the same verified email.
+            user = User.objects.filter(email__iexact=email).first()
+            if user is not None:
+                user.social_provider = provider
+                user.social_sub = sub
+                user.save(update_fields=['social_provider', 'social_sub'])
+
+        created = False
+        if user is None:
+            user = User.objects.create_social_user(
+                provider=provider,
+                sub=sub,
+                email=email,
+            )
+            created = True
+
+        if not user.is_verified:
+            user.is_verified = True
+            user.save(update_fields=['is_verified'])
+
+        if user.role == UserRole.CUSTOMER:
+            profile, _ = CustomerProfile.objects.get_or_create(user=user)
+            first_name = serializer.validated_data.get('first_name', '')
+            last_name = serializer.validated_data.get('last_name', '')
+            if created and (first_name or last_name):
+                profile.first_name = first_name or profile.first_name
+                profile.last_name = last_name or profile.last_name
+                profile.save(update_fields=['first_name', 'last_name'])
+        elif user.role == UserRole.COLLECTOR:
+            CollectorProfile.objects.get_or_create(user=user)
 
         return Response(get_tokens_for_user(user), status=status.HTTP_200_OK)
 
