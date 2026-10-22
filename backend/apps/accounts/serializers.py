@@ -15,10 +15,19 @@ class VerifyOTPSerializer(serializers.Serializer):
     otp_code = serializers.CharField(max_length=6)
 
 
+class SocialLoginSerializer(serializers.Serializer):
+    """Payload from the frontend after Google/Apple SDK yields an ID token."""
+    provider = serializers.ChoiceField(choices=['google', 'apple'])
+    id_token = serializers.CharField()
+    # Apple shares the user's name only on the very first authorization.
+    first_name = serializers.CharField(max_length=50, required=False, allow_blank=True)
+    last_name = serializers.CharField(max_length=50, required=False, allow_blank=True)
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'phone_number', 'role', 'is_verified', 'created_at']
+        fields = ['id', 'phone_number', 'email', 'social_provider', 'role', 'is_verified', 'created_at']
         read_only_fields = ['id', 'is_verified', 'created_at']
 
 

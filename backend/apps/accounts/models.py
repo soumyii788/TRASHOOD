@@ -23,6 +23,16 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+    def create_social_user(self, provider, sub, email=None, role=UserRole.CUSTOMER, **extra):
+        """Create a user authenticated via an external identity provider (Google/Apple)."""
+        if not sub:
+            raise ValueError("Social provider subject (sub) is required.")
+        user = self.model(social_provider=provider, social_sub=sub, email=email,
+                          role=role, is_verified=True, **extra)
+        user.set_unusable_password()
+        user.save(using=self._db)
+        return user
+
     def create_superuser(self, phone_number, password=None, **extra):
         extra.setdefault('is_staff', True)
         extra.setdefault('is_superuser', True)
@@ -34,11 +44,21 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     """
-    Central user model. Authenticated by phone number + OTP.
+    Central user model. Authenticated by phone number + OTP, or via a
+    social identity provider (Google / Apple).
     Role drives API access permissions.
     """
+
+    class SocialProvider(models.TextChoices):
+        GOOGLE = 'google', 'Google'
+        APPLE = 'apple', 'Apple'
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    phone_number = models.CharField(max_length=15, unique=True)
+    phone_number = models.CharField(max_length=15, unique=True, null=True, blank=True)
+    email = models.EmailField(unique=True, null=True, blank=True)
+    social_provider = models.CharField(max_length=20, choices=SocialProvider.choices,
+                                      null=True, blank=True)
+    social_sub = models.CharField(max_length=255, null=True, blank=True)
     role = models.CharField(max_length=20, choices=UserRole.choices, default=UserRole.CUSTOMER)
     is_verified = models.BooleanField(default=False)  # True after OTP verification
     is_active = models.BooleanField(default=True)
@@ -51,8 +71,22 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'phone_number'
     REQUIRED_FIELDS = []
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['social_provider', 'social_sub'],
+                condition=models.Q(social_sub__isnull=False),
+                name='unique_social_identity',
+            ),
+        ]
+
+    @property
+    def login_identifier(self):
+        """Human-readable identifier for display/admin."""
+        return self.phone_number or self.email or str(self.id)
+
     def __str__(self):
-        return f"{self.phone_number} ({self.role})"
+        return f"{self.login_identifier} ({self.role})"
 
 
 class OTPVerification(models.Model):

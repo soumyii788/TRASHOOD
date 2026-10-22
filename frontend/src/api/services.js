@@ -8,6 +8,9 @@ export const sendOTP = (phone_number, role = 'CUSTOMER') =>
 export const verifyOTP = (phone_number, otp_code) =>
   api.post('/auth/verify-otp/', { phone_number, otp_code })
 
+export const socialLogin = (provider, id_token, name = {}) =>
+  api.post('/auth/social/', { provider, id_token, ...name })
+
 export const getMe = () => api.get('/auth/me/')
 export const refreshToken = (refresh) => api.post('/auth/token/refresh/', { refresh })
 
