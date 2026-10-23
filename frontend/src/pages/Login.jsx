@@ -2,7 +2,18 @@ import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { sendOTP, verifyOTP, socialLogin } from '../api/services'
 import logoFull from '../assets/trashhood-logo.png'
+import heroBg from '../assets/hero.png'
+import heroBottle from '../assets/hero-bottle.jpg'
+import heroRecycle from '../assets/hero-recycle.jpg'
+import recycleBag from '../assets/recycle-bag.jpg'
 import './Login.css'
+
+const TRASH_IMAGES = [
+  { src: heroBottle,  label: '♻️ Bottles & Cans' },
+  { src: heroRecycle, label: '📦 Paper & Cardboard' },
+  { src: recycleBag,  label: '🛍️ Plastic Bags' },
+  { src: heroBg,      label: '🌱 E-Waste & More' },
+]
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || ''
 const APPLE_CLIENT_ID = import.meta.env.VITE_APPLE_CLIENT_ID || ''
@@ -177,6 +188,19 @@ export default function Login() {
           <img src={logoFull} alt="Trashhood" className="login-logo" />
           <h1>Turn your scrap into <em>rewards</em></h1>
           <p>Schedule doorstep pickups, earn instant wallet credits, and track every kilo you recycle.</p>
+
+          {/* ── Scrollable image gallery with zoom-on-touch ── */}
+          <div className="hero-gallery-wrap">
+            <div className="hero-gallery">
+              {TRASH_IMAGES.map((img, i) => (
+                <div className="hero-gallery-item" key={i}>
+                  <img src={img.src} alt={img.label} draggable={false} />
+                  <span className="hero-gallery-label">{img.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
           <ul className="login-bullets">
             <li>✓ Free doorstep pickup</li>
             <li>✓ Instant wallet credit</li>
