@@ -1,33 +1,320 @@
-.login-container {
+/* ============================================================
+   LOGIN PAGE — Full rewrite aligned with Login.jsx structure
+   ============================================================ */
+
+/* ─── Reset helpers ───────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* ─── Outer wrapper: full-screen two-column split ─────────── */
+.login-wrap {
   min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+}
+
+/* ─── Left hero panel ─────────────────────────────────────── */
+.login-hero {
+  flex: 1;
+  background: linear-gradient(145deg, #1a472a 0%, #2d6a4f 60%, #40916c 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #1a472a, #2d6a4f);
+  padding: 3rem 2.5rem;
+  color: #fff;
 }
 
-.login-card {
-  background: white;
-  padding: 2.5rem;
-  border-radius: 16px;
-  width: 100%;
-  max-width: 380px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+.login-hero-content {
+  max-width: 400px;
 }
 
-.login-card h1 {
-  font-size: 1.8rem;
-  margin: 0 0 0.25rem;
-  color: #1a1f1a;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-}
 .login-logo {
   display: block;
-  width: 150px;
+  width: 160px;
   height: auto;
-  margin: 0 auto 1rem;
+  margin-bottom: 2rem;
+  filter: brightness(0) invert(1); /* white logo on green bg */
 }
+
+.login-hero h1 {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 1rem;
+  letter-spacing: -0.5px;
+  color: #fff;
+}
+
+.login-hero h1 em {
+  font-style: normal;
+  color: #b7e4c7;
+}
+
+.login-hero p {
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.88;
+  margin: 0 0 1.75rem;
+}
+
+.login-bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.login-bullets li {
+  font-size: 0.95rem;
+  font-weight: 500;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ─── Right form panel ────────────────────────────────────── */
+.login-form-side {
+  flex: 0 0 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7f8f6;
+  padding: 2.5rem 2rem;
+}
+
+/* ─── Card ────────────────────────────────────────────────── */
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 2.5rem 2.25rem;
+  box-shadow: 0 8px 48px rgba(29, 74, 42, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* ─── Form headings ───────────────────────────────────────── */
+.login-card h2 {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #1a1f1a;
+  margin: 0 0 0.3rem;
+  letter-spacing: -0.4px;
+}
+
+.login-sub {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0 0 1.5rem;
+  line-height: 1.5;
+}
+
+/* ─── Field label ─────────────────────────────────────────── */
+.field-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #444;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.45rem;
+}
+
+/* ─── Inputs ──────────────────────────────────────────────── */
+.login-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.login-card input[type="tel"],
+.login-card input[type="text"] {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 2px solid #e2e8e2;
+  border-radius: 10px;
+  font-size: 1rem;
+  color: #1a1f1a;
+  background: #fafafa;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  margin-bottom: 1rem;
+}
+
+.login-card input:focus {
+  outline: none;
+  border-color: #2d6a4f;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.12);
+}
+
+/* ─── Primary button ──────────────────────────────────────── */
+.btn-primary {
+  width: 100%;
+  background: #2d6a4f;
+  color: #fff;
+  border: none;
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+  box-shadow: 0 4px 14px rgba(45, 106, 79, 0.35);
+  letter-spacing: 0.01em;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #245740;
+  box-shadow: 0 6px 18px rgba(45, 106, 79, 0.45);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  background: #9dbfb0;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ─── Inline link button (e.g., "Change") ────────────────── */
+.link-btn {
+  background: none;
+  border: none;
+  color: #2d6a4f;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.link-btn:hover {
+  color: #1a472a;
+}
+
+/* ─── Error message ───────────────────────────────────────── */
+.login-error {
+  font-size: 0.85rem;
+  color: #d93025;
+  margin: -0.5rem 0 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* ─── Divider ─────────────────────────────────────────────── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.5rem 0 1rem;
+  color: #bbb;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e8eae8;
+}
+
+/* ─── Social buttons ──────────────────────────────────────── */
+.social-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.social-slot {
+  width: 100%;
+  min-height: 44px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Google button rendered by GIS SDK overrides */
+.social-slot #credential_picker_container,
+.social-slot iframe {
+  width: 100% !important;
+}
+
+.social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s, background 0.15s, box-shadow 0.15s;
+  border: 2px solid transparent;
+}
+
+.social-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Google fallback */
+.social-btn--google {
+  background: #fff;
+  color: #3c4043;
+  border-color: #dadce0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.social-btn--google:hover:not(:disabled) {
+  background: #f8f9fa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Apple */
+.social-btn--apple {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.social-btn--apple:hover:not(:disabled) {
+  background: #1c1c1e;
+}
+
+/* ─── Terms line ──────────────────────────────────────────── */
+.login-terms {
+  font-size: 0.78rem;
+  color: #aaa;
+  text-align: center;
+  margin: 1rem 0 0;
+  line-height: 1.5;
+}
+
+.login-terms a {
+  color: #2d6a4f;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.login-terms a:hover {
+  text-decoration: underline;
+}
+
+/* ─── Visually hidden (a11y) ──────────────────────────────── */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -40,115 +327,38 @@
   border: 0;
 }
 
-.subtitle {
-  color: #666;
-  margin: 0 0 2rem;
-  font-size: 0.9rem;
+/* ─── Responsive: collapse to single-column on mobile ──────── */
+@media (max-width: 768px) {
+  .login-wrap {
+    flex-direction: column;
+  }
+
+  .login-hero {
+    padding: 2.5rem 1.5rem;
+    flex: 0 0 auto;
+  }
+
+  .login-hero h1 {
+    font-size: 1.6rem;
+  }
+
+  .login-form-side {
+    flex: 1;
+    padding: 2rem 1.25rem;
+  }
+
+  .login-card {
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+  }
 }
 
-form { display: flex; flex-direction: column; gap: 0.75rem; }
+@media (max-width: 480px) {
+  .login-hero {
+    padding: 2rem 1.25rem;
+  }
 
-label { font-weight: 600; font-size: 0.9rem; color: #333; }
-
-input {
-  padding: 0.75rem 1rem;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.2s;
+  .login-card {
+    padding: 1.75rem 1.25rem;
+  }
 }
-input:focus { outline: none; border-color: #2d6a4f; }
-
-button[type="submit"] {
-  background: #2d6a4f;
-  color: white;
-  border: none;
-  padding: 0.85rem;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
-  margin-top: 0.5rem;
-}
-button[type="submit"]:hover { background: #1a472a; }
-button[type="submit"]:disabled { background: #aaa; cursor: not-allowed; }
-
-button.link {
-  background: none;
-  border: none;
-  color: #2d6a4f;
-  cursor: pointer;
-  font-size: 0.9rem;
-  text-align: left;
-  padding: 0;
-}
-
-.error { color: #e53e3e; font-size: 0.85rem; margin: 0; }
-
-/* ---- Social login (Google / Apple) ---- */
-.social-login {
-  margin-top: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-.social-divider {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  color: #999;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.social-divider::before,
-.social-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: #e0e0e0;
-}
-.social-btn-slot {
-  display: flex;
-  justify-content: center;
-  min-height: 44px; /* reserve space so layout doesn't jump when GIS renders */
-}
-.social-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: opacity 0.15s, background 0.15s;
-}
-.social-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-.apple-btn {
-  background: #000;
-  color: #fff;
-  border: none;
-}
-.apple-btn:hover:not(:disabled) { background: #1c1c1e; }
-.apple-logo { width: 18px; height: 18px; flex-shrink: 0; }
-
-.dev-otp-hint {
-  background: #f0fff4;
-  border: 1px solid #9ae6b4;
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
-  font-size: 0.9rem;
-  color: #276749;
-}
-.otp-code {
-  font-family: monospace;
-  font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  color: #1a472a;
-}
-
