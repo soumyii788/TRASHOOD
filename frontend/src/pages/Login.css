@@ -28,7 +28,7 @@
 }
 
 .login-hero-content {
-  max-width: 400px;
+  max-width: 460px;
 }
 
 .login-logo {
@@ -108,8 +108,8 @@
 }
 
 .hero-gallery-item {
-  flex: 0 0 220px;
-  height: 260px;
+  flex: 0 0 270px;
+  height: 310px;
   border-radius: 12px;
   overflow: hidden;
   scroll-snap-align: start;
