@@ -4,8 +4,16 @@ Debug=False, strict security, reads all secrets from environment variables.
 """
 from .base import *  # noqa
 import os
+from django.core.exceptions import ImproperlyConfigured
 
 DEBUG = False
+
+# Enforce that a real SECRET_KEY is set in production.
+if SECRET_KEY == 'dev-insecure-key-replace-in-production':
+    raise ImproperlyConfigured(
+        'SECRET_KEY environment variable must be set in production. '
+        'Generate one with: python -c "import secrets; print(secrets.token_urlsafe(50))"'
+    )
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
